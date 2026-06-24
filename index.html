@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dong Né - Restaurant Vietnamien Paris 15</title>
+    <title>Dong Né - Restaurant Coréen Paris 15</title>
     <!-- Polices élégantes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- DESIGN & VARIABLES (Inspiré Pink Koï) --- */
+        /* --- DESIGN & VARIABLES (Inspiré Pink Koï / Asiatique Chic) --- */
         :root {
-            --color-primary: #8a1c14;   /* Rouge Vietnamien profond */
+            --color-primary: #8a1c14;   /* Rouge profond */
             --color-accent: #dfb249;    /* Or / Doré asiatique */
             --color-dark: #1c1c1c;      /* Noir moderne */
             --color-light: #ffffff;     /* Blanc pur */
@@ -67,6 +67,12 @@
             color: var(--color-accent);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -101,6 +107,65 @@
 
         .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
+        }
+
+        /* --- DROPDOWN DE LANGUE --- */
+        .lang-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .lang-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: var(--color-light);
+            min-width: 130px;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            z-index: 1100;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .lang-content a {
+            color: var(--color-dark);
+            padding: 0.7rem 1rem;
+            text-decoration: none;
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .lang-content a:hover {
+            background-color: #f7f5f0;
+            color: var(--color-primary);
+        }
+
+        .lang-dropdown:hover .lang-content {
+            display: block;
         }
 
         /* --- CONTENU DE L'ONGLET --- */
@@ -138,7 +203,18 @@
             margin-top: 0.5rem;
         }
 
-        /* --- ONGLET ACCUEIL (HERO) --- */
+        h3.menu-section-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-primary);
+            grid-column: 1 / -1;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(138, 28, 20, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        /* --- ONGLET ACCUEIL --- */
         .hero {
             display: flex;
             align-items: center;
@@ -199,11 +275,7 @@
             transition: transform 0.4s;
         }
 
-        .hero-images img:hover {
-            transform: scale(1.03);
-        }
-
-        /* --- SECTION AVIS CRITIQUES --- */
+        /* --- REVIEWS --- */
         .reviews-section {
             margin-top: 5rem;
             background: #fff;
@@ -226,86 +298,109 @@
 
         .stars { color: var(--color-accent); margin-bottom: 0.5rem;}
 
-        /* --- ONGLET MENU (CORRIGÉ & CLIQUABLE) --- */
-        .menu-layout {
+        /* --- MENU INTERACTIF --- */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .menu-tab-btn {
+            background: none;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .menu-tab-btn.active, .menu-tab-btn:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .menu-category {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .menu-category.active {
+            display: grid;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 2rem;
+            justify-content: space-between;
+            gap: 0.5rem;
+            border-top: 3px solid transparent;
+            transition: all 0.3s;
         }
 
-        .menu-img-container {
-            max-width: 500px;
-            width: 100%;
-            box-shadow: var(--shadow);
-            border: 4px solid #fff;
-            border-radius: 4px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
+        .menu-item:hover {
+            border-top-color: var(--color-accent);
+            transform: translateY(-2px);
         }
 
-        .menu-img-container img {
-            width: 100%;
-            display: block;
-            transition: transform 0.5s, filter 0.3s;
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
         }
 
-        .menu-img-container:hover img {
-            transform: scale(1.05);
-            filter: brightness(0.8);
+        .menu-item-header h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--color-dark);
         }
 
-        /* Overlay "Cliquez pour agrandir" */
-        .menu-img-container::after {
-            content: "🔍 Cliquez pour agrandir";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            background: rgba(0,0,0,0.6);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+        .menu-item-price {
+            font-weight: 600;
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            white-space: nowrap;
         }
 
-        .menu-img-container:hover::after {
-            opacity: 1;
+        .menu-item p {
+            font-size: 0.85rem;
+            color: #666;
         }
 
-        /* LIGHTBOX POUR LE MENU (Agrandissement plein écran) */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-            cursor: zoom-out;
+        .menu-sub-list {
+            font-size: 0.85rem;
+            color: #444;
+            margin-top: 0.3rem;
+            padding-left: 1rem;
         }
 
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 4px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            animation: zoomIn 0.3s ease;
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.1rem 0.4rem;
+            background: #eee;
+            border-radius: 3px;
+            font-weight: 600;
+            margin-right: 0.3rem;
         }
+        .badge-best { background: #fff3e0; color: #e65100; border: 1px solid #ffe0b2; }
+        .badge-new { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
 
-        @keyframes zoomIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+        .spicy { color: #d32f2f; }
 
-        /* --- ONGLET CONTACT & INFOS (MIS À JOUR) --- */
+        /* --- CONTACT & INFOS --- */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -352,88 +447,6 @@
             border: none;
         }
 
-        /* --- ONGLET RÉSERVATION --- */
-        .booking-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 3rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: inherit;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--color-primary);
-        }
-
-        /* --- MODAL D'ANIMATION DE VALIDATION --- */
-        .success-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(28, 28, 28, 0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-        }
-
-        .success-card {
-            background: white;
-            color: var(--color-dark);
-            padding: 3rem;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            transform: scale(0.7);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .success-overlay.active .success-card {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: #4bb543;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin: 0 auto 1.5rem;
-        }
-
-        /* --- FOOTER --- */
         footer {
             background-color: var(--color-dark);
             color: #aaa;
@@ -443,12 +456,12 @@
             font-size: 0.9rem;
         }
 
-        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
             .navbar { flex-direction: column; gap: 1rem; }
+            .nav-right { flex-direction: column; gap: 1rem; }
             .hero { flex-direction: column; text-align: center; }
             .hero-images { max-width: 100%; }
-            .contact-grid, .reviews-grid { grid-template-columns: 1fr; }
+            .contact-grid, .reviews-grid, .menu-category { grid-template-columns: 1fr; }
             .hero-content h1 { font-size: 3rem; }
         }
     </style>
@@ -459,161 +472,368 @@
     <header>
         <nav class="navbar">
             <div class="logo">DONG <span>NÉ</span></div>
-            <ul class="nav-links">
-                <li class="nav-link active" onclick="switchTab('accueil')">Accueil</li>
-                <li class="nav-link" onclick="switchTab('menu')">Le Menu</li>
-                <li class="nav-link" onclick="switchTab('reservation')">Réservation</li>
-                <li class="nav-link" onclick="switchTab('contact')">Infos & Horaires</li>
-            </ul>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li class="nav-link active" data-key="nav_home" onclick="switchTab('accueil')">Accueil</li>
+                    <li class="nav-link" data-key="nav_menu" onclick="switchTab('menu')">Le Menu</li>
+                    <li class="nav-link" data-key="nav_contact" onclick="switchTab('contact')">Infos & Horaires</li>
+                </ul>
+                
+                <!-- MENU DROPDOWN DE LANGUES -->
+                <div class="lang-dropdown">
+                    <button class="lang-btn"><i class="fa-solid fa-earth-asia"></i> <span id="active-lang">Français</span> <i class="fa-solid fa-chevron-down" style="font-size:0.7rem;"></i></button>
+                    <div class="lang-content">
+                        <a href="#" onclick="changeLanguage('fr', 'Français')">Français</a>
+                        <a href="#" onclick="changeLanguage('en', 'English')">English</a>
+                        <a href="#" onclick="changeLanguage('es', 'Español')">Español</a>
+                        <a href="#" onclick="changeLanguage('ko', '한국어')">한국어</a>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <!-- SECTION PRINCIPALE -->
     <main>
 
         <!-- ONGLET : ACCUEIL -->
         <section id="accueil" class="tab-content active">
             <div class="hero">
                 <div class="hero-content">
-                    <h1>L'Authenticité du Vietnam au cœur du 15ème</h1>
-                    <p>Inspiré par le raffinement urbain et la Street Food traditionnelle, Dong Né vous propose une immersion culinaire asiatique unique à Paris. Venez savourer nos Phô faits maison et nos Bo Buns croustillants.</p>
-                    <button class="btn" onclick="switchTab('reservation')">Réserver une table</button>
+                    <h1 data-key="hero_title">L'Authenticité Coréenne au cœur du 15ème</h1>
+                    <p data-key="hero_desc">Découvrez Dong Né, votre escale incontournable à Paris pour savourer de délicieux Kimbaps faits maison, du poulet frit coréen croustillant, des Tteokbokki fondants et des desserts traditionnels uniques.</p>
+                    <button class="btn" data-key="btn_book_now" onclick="switchTab('menu')">Découvrir la carte</button>
                 </div>
                 <div class="hero-images">
-                    <img src="https://images.unsplash.com/photo-1582450871972-ab5ca641643d?auto=format&fit=crop&w=500&q=80" alt="Plat Vietnamien">
-                    <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=500&q=80" alt="Soupe vietnamienne fumante">
-                    <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=500&q=80" alt="Ambiance Asiatique">
-                    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=500&q=80" alt="Bo bun">
+                    <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=500&q=80" alt="Plat Cuisine Coréenne">
+                    <!-- Photo corrigée en haut à droite (Barbecue & cuisine authentique) -->
+                    <img src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=500&q=80" alt="Cuisine Coréenne Traditionnelle">
+                    <img src="https://images.unsplash.com/photo-1582450871972-ab5ca641643d?auto=format&fit=crop&w=500&q=80" alt="Kimbap">
+                    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=500&q=80" alt="Bibimbap">
                 </div>
             </div>
 
-            <!-- Critiques d'avis Google -->
             <div class="reviews-section">
-                <h3 style="font-family: var(--font-heading); font-size: 2rem; text-align: center; color: var(--color-primary);">Ce que nos clients disent (Avis & Critiques)</h3>
+                <h3 style="font-family: var(--font-heading); font-size: 2rem; text-align: center; color: var(--color-primary);" data-key="reviews_title">Ce que nos clients disent (Avis & Critiques)</h3>
                 <div class="reviews-grid">
                     <div class="review-card">
                         <div class="stars">★★★★★</div>
-                        <p>"Le meilleur Pho du 15ème arrondissement sans hésiter ! Bouillon tellement parfumé et l'accueil est d'une gentillesse rare."</p>
+                        <p data-key="review_1">"Les kimbaps sont incroyablement frais et généreux ! Un vrai voyage gustatif à Séoul depuis la rue Violet."</p>
                         <strong style="display:block; margin-top:1rem; font-size:0.85rem;">— Thomas L. (Avis Google)</strong>
                     </div>
                     <div class="review-card">
                         <div class="stars">★★★★★</div>
-                        <p>"Superbe adresse repérée sur Instagram. Le décor est magnifique, moderne tout en gardant une touche asiatique chic !"</p>
+                        <p data-key="review_2">"Le poulet frit caramélisé est à tomber par terre. Le cadre est épuré, intimiste et le service adorable !"</p>
                         <strong style="display:block; margin-top:1rem; font-size:0.85rem;">— Léa M. (Critique)</strong>
                     </div>
                     <div class="review-card">
                         <div class="stars">★★★★★</div>
-                        <p>"Les nems sont ultra croustillants et les plats copieux. Une pépite de quartier où on se sent bien."</p>
+                        <p data-key="review_3">"Formule midi au top et très complète. Les desserts Bungeoppang à la pâte de haricot rouge sont une superbe découverte."</p>
                         <strong style="display:block; margin-top:1rem; font-size:0.85rem;">— Nicolas R.</strong>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ONGLET : LE MENU (REPARÉ ET INCORPORÉ AVEC SCRIPT LIGHTBOX) -->
+        <!-- ONGLET : LE MENU INTERACTIF -->
         <section id="menu" class="tab-content">
-            <h2>Notre Menu & Carte</h2>
-            <div class="menu-layout">
-                <p style="text-align: center; max-width: 600px; margin-bottom: 1rem;">Cliquez sur l'image ci-dessous pour ouvrir la carte en grand écran et lire nos plats confortablement.</p>
-                
-                <div class="menu-img-container" onclick="openLightbox()">
-                    <img id="menuImage" src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80" alt="Carte du restaurant Dong Né">
+            <h2 data-key="menu_title">Notre Carte</h2>
+            
+            <div class="menu-tabs">
+                <button class="menu-tab-btn active" data-key="tab_formules" onclick="switchMenuCategory('formules', this)">Formules & Sets</button>
+                <button class="menu-tab-btn" data-key="tab_plats" onclick="switchMenuCategory('plats', this)">Plats Principaux</button>
+                <button class="menu-tab-btn" data-key="tab_sides" onclick="switchMenuCategory('sides', this)">Sides & Fritures</button>
+                <button class="menu-tab-btn" data-key="tab_boissons" onclick="switchMenuCategory('boissons', this)">Boissons & Thés</button>
+                <button class="menu-tab-btn" data-key="tab_desserts" onclick="switchMenuCategory('desserts', this)">Desserts</button>
+            </div>
+
+            <!-- CATÉGORIE : FORMULES -->
+            <div id="formules" class="menu-category active">
+                <h3 class="menu-section-title" data-key="title_midi">Formules Midi (En semaine jusqu'à 15h00 - Sauf jours fériés & week-end)</h3>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Formule A</h4>
+                        <div class="menu-item-price">17.00€</div>
+                    </div>
+                    <p data-key="f_a_desc">1 KIMBAP au choix + (1 TTEOKBOKKI OU 1 POULET au choix) + 1 FRITURE au choix</p>
+                    <p style="font-size:0.75rem; color:var(--color-primary);" data-key="supp_cheese">Supplément fromage +2.00€</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Formule B</h4>
+                        <div class="menu-item-price">18.00€</div>
+                    </div>
+                    <p data-key="f_b_desc">1 POULET au choix + 1 RIZ ASSAISONNÉ + 1 FRITURE au choix</p>
+                    <p style="font-size:0.75rem; color:var(--color-primary);" data-key="supp_chicken">Poulet Mixte +1.00€</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Formule C</h4>
+                        <div class="menu-item-price">19.00€</div>
+                    </div>
+                    <p data-key="f_c_desc">1 BIBIMBAP au choix + 1 OMUK SOUPE + 1 FRITURE au choix</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Formule D</h4>
+                        <div class="menu-item-price">20.00€</div>
+                    </div>
+                    <p data-key="f_d_desc">TTEOKBOKKI + 1 OMUK SOUPE + 2 FRITURES au choix</p>
+                    <p style="font-size:0.75rem; color:var(--color-primary);" data-key="supp_cheese">Supplément fromage +2.00€</p>
+                </div>
+
+                <h3 class="menu-section-title" data-key="title_sets">Sets Complets</h3>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Dongné SET (1 Personne)</h4>
+                        <div class="menu-item-price">25.00€</div>
+                    </div>
+                    <p data-key="set_1p_desc">BIBIMBAP au choix + 1 OMUK SOUPE + 1 FRITURE au choix + 1 DESSERT au choix</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>A - SET (2 Personnes)</h4>
+                        <div class="menu-item-price">44.00€ <span style="font-size:0.8rem; color:#666;" data-key="per_pers">(22€/pers)</span></div>
+                    </div>
+                    <p data-key="set_2pa_desc">POULET au choix + 1 KIMBAP au choix + 1 JAPCHAE au choix + 2 FRITURES au choix</p>
+                    <p style="font-size:0.75rem; color:var(--color-primary);" data-key="supp_chicken">Poulet Mixte +1.00€</p>
+                </div>
+                <div class="menu-item" style="grid-column: 1 / -1;">
+                    <div class="menu-item-header">
+                        <h4>B - SET (2 Personnes)</h4>
+                        <div class="menu-item-price">46.00€ <span style="font-size:0.8rem; color:#666;" data-key="per_pers">(23€/pers)</span></div>
+                    </div>
+                    <p data-key="set_2pb_desc">TTEOKBOKKI + 1 KIMBAP au choix + 1 ASSORTIMENT DE FRITURES + 2 OMUK SOUPES</p>
+                    <p style="font-size:0.75rem; color:var(--color-primary);" data-key="supp_cheese">Supplément fromage +2.00€</p>
+                </div>
+            </div>
+
+            <!-- CATÉGORIE : PLATS -->
+            <div id="plats" class="menu-category">
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Kimbap <span class="badge badge-best">BEST!!</span></h4>
+                        <div class="menu-item-price">12.00€</div>
+                    </div>
+                    <p data-key="kimbap_desc">Rouleau de riz entouré d'algue, garni de concombre, radis, carotte, ainsi que de la garniture de votre choix :</p>
+                    <div class="menu-sub-list" data-key="kimbap_list">
+                        • Bœuf (불고기) &nbsp;&nbsp; • Porc (제육) &nbsp;&nbsp; • Thon (참치)<br>
+                        • Crevette (새우) &nbsp;&nbsp; • Fromage (치즈) &nbsp;&nbsp; • Salade (샐러드)<br>
+                        • Piment (땡초) 🔥
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Poulet Caramélisé (깐풍닭)</h4>
+                        <div class="menu-item-price">16.00€</div>
+                    </div>
+                    <p data-key="poulet_caram_desc">100% blanc de poulet frit dans sa sauce caramélisée signature.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Poulet Coréen (양념닭)</h4>
+                        <div class="menu-item-price">16.00€</div>
+                    </div>
+                    <p data-key="poulet_coreen_desc">100% blanc de poulet frit dans sa sauce épicée et sucrée, saupoudré de cacahuètes grillées.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Poulet Mixte (반/반닭) <span class="badge badge-best">BEST!!</span></h4>
+                        <div class="menu-item-price">17.00€</div>
+                    </div>
+                    <p data-key="poulet_mixte_desc">100% blanc de poulet frit servi avec nos 2 sauces signatures.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Bibimbap (비빔밥)</h4>
+                        <div class="menu-item-price">16.00€</div>
+                    </div>
+                    <p data-key="bibimbap_desc">Base de riz accompagnée de courgette, carotte, champignon, radis et oignon ainsi que de la garniture de votre choix.</p>
+                    <p style="font-size:0.75rem; color:#666;" data-key="bibimbap_opts">Options : Légume / Porc (+1€) / Bœuf (+1€) / Thon (+1€)</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Tteokbokki (떡볶이) <span class="badge badge-best">BEST!!</span></h4>
+                        <div class="menu-item-price">15.00€</div>
+                    </div>
+                    <p data-key="tteok_desc">Gâteaux de riz et pâte de poisson dans sa sauce pimentée.</p>
+                    <p style="font-size:0.75rem; color:var(--color-primary);" data-key="supp_cheese">Supplément Fromage +2.00€</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Japchae (잡채)</h4>
+                        <div class="menu-item-price">14.00€</div>
+                    </div>
+                    <p data-key="japchae_desc">Nouilles de patate douce sautées avec des légumes.</p>
+                    <p style="font-size:0.75rem; color:var(--color-primary);" data-key="supp_boeuf">Supplément Bœuf +1.00€</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Ramen Coréen (라면)</h4>
+                        <div class="menu-item-price">11.00€</div>
+                    </div>
+                    <p data-key="ramen_desc">Nouilles dans un bouillon très épicé garni d'un œuf.</p>
+                    <p style="font-size:0.75rem; color:var(--color-primary);" data-key="supp_cheddar">Supplément Cheddar +1.00€</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Soupe de Raviolis (만둣국)</h4>
+                        <div class="menu-item-price">14.00€</div>
+                    </div>
+                    <p data-key="soupe_rav_desc">Une soupe de raviolis dans un bouillon de légumes et anchois, garnie d'une omelette, courgette, bœuf, feuilles d'algue.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Udon (우동) <span class="badge badge-new">NOUVEAUTÉ</span></h4>
+                        <div class="menu-item-price">15.00€</div>
+                    </div>
+                    <p data-key="udon_desc">Nouilles udon dans un bouillon de soja avec pâte de poisson, 2 fritures crevettes et 1 friture légume.</p>
+                </div>
+                <div class="menu-item" style="grid-column: 1 / -1;">
+                    <div class="menu-item-header">
+                        <h4>Fou Épicé (땡초김밥) <span class="badge badge-new">NOUVEAUTÉ</span> 🔥</h4>
+                        <div class="menu-item-price">12.00€</div>
+                    </div>
+                    <p data-key="fou_epice_desc">Notre version kimbap ultra-relevée pour les amateurs de sensations fortes.</p>
+                </div>
+            </div>
+
+            <!-- CATÉGORIE : SIDES -->
+            <div id="sides" class="menu-category">
+                <div class="menu-item" style="grid-column: 1 / -1;">
+                    <div class="menu-item-header">
+                        <h4>Assortiment de Fritures (튀김 세트)</h4>
+                        <div class="menu-item-price">15.00€</div>
+                    </div>
+                    <p data-key="assort_frit_desc">Œuf 1p, Raviolis 2p, kimmali 2p, crevettes 3p, Légume 2p, fromages 2p.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Omuk Soupe (어묵)</h4>
+                        <div class="menu-item-price">3.00€</div>
+                    </div>
+                    <p data-key="omuk_desc">Bouillon de poisson accompagné de sa 1 brochette de pâte de poisson.</p>
                 </div>
                 
-                <button class="btn" onclick="switchTab('reservation')" style="margin-top: 1rem;">Le menu vous plaît ? Réservez ici</button>
+                <h3 class="menu-section-title" data-key="title_fritures_indiv">Portions de Fritures Individuelles — 2.00€ l'unité</h3>
+                <div class="menu-item"><h4 data-key="frit_oeuf">Friture Œuf Dur (계란)</h4></div>
+                <div class="menu-item"><h4 data-key="frit_rav">Fritures Raviolis - 2p (만두) (poulet)</h4></div>
+                <div class="menu-item"><h4 data-key="frit_kim">Friture Kimmali (김말이)</h4></div>
+                <div class="menu-item"><h4 data-key="frit_crev">Fritures Crevettes - 2p (새우)</h4></div>
+                <div class="menu-item"><h4 data-key="frit_leg">Friture Légume (야채) (courgettes, carottes, oignons)</h4></div>
+                <div class="menu-item"><h4 data-key="frit_fro">Fritures Fromage - 2p (치즈)</h4></div>
+            </div>
+
+            <!-- CATÉGORIE : BOISSONS -->
+            <div id="boissons" class="menu-category">
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4 data-key="boisson_the_cafe">Thés / Cafés</h4>
+                        <div class="menu-item-price">4.00€ <span style="font-size:0.8rem; color:#666;" data-key="b_chaud">(Chaud)</span> / 4.50€ <span style="font-size:0.8rem; color:#666;" data-key="b_glace">(Glacé)</span></div>
+                    </div>
+                    <div class="menu-sub-list" data-key="the_list">
+                        • Thé Vert (녹차) &nbsp;&nbsp; • Thé Jasmin (자스민)<br>
+                        • Thé au Yuju (유자차) &nbsp;&nbsp; • Thé au Gingembre (생강차)<br>
+                        • Café (커피)
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Ade <span style="font-size:0.9rem; color:#666; font-weight:normal;" data-key="ade_sub">(Limonades coréennes)</span></h4>
+                        <div class="menu-item-price">6.00€</div>
+                    </div>
+                    <div class="menu-sub-list" data-key="ade_list">
+                        • Ade au Yuju (유자 에이드)<br>
+                        • Ade à la Prune (매실 에이드)<br>
+                        • Ade à la Fraise (딸기 에이드)
+                    </div>
+                </div>
+                <div class="menu-item" style="grid-column: 1 / -1;">
+                    <div class="menu-item-header">
+                        <h4 data-key="boissons_fraiches">Boissons Fraîches</h4>
+                        <div class="menu-item-price">3.00€</div>
+                    </div>
+                    <div class="menu-sub-list" style="display:grid; grid-template-columns: repeat(2, 1fr); gap:0.2rem;" data-key="boissons_list">
+                        <span>• Coca & Coca Zero (콜라)</span>
+                        <span>• Jus d'Ananas (파인애플 주스)</span>
+                        <span>• Jus de Mangue (망고주스)</span>
+                        <span>• Jus d'Aloe (알로에주스)</span>
+                        <span>• Lipton Pêche (아이스티)</span>
+                        <span>• Sikhye (Boisson riz) (식혜)</span>
+                        <span>• Evian (에비앙)</span>
+                        <span>• Perrier (페리에)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATÉGORIE : DESSERTS -->
+            <div id="desserts" class="menu-category">
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Bingsu (빙수)</h4>
+                        <div class="menu-item-price">9.00€</div>
+                    </div>
+                    <p data-key="bingsu_desc">Glace pilée traditionnelle coréenne garnie d'une boule de glace à la vanille. Au choix :</p>
+                    <p class="menu-sub-list" data-key="bingsu_list">• Haricot Rouge (팥빙수) &nbsp;&nbsp; • Thé Vert (녹차) &nbsp;&nbsp; • Oreo (오레오)</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4 data-key="fondant_title">Fondant au Chocolat (퐁당오쇼콜라)</h4>
+                        <div class="menu-item-price">6.50€</div>
+                    </div>
+                    <p data-key="fondant_desc">Un grand classique gourmand au cœur coulant.</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h4>Bungeoppang (붕어빵) <span class="badge badge-new">NOUVEAUTÉ</span></h4>
+                        <div class="menu-item-price">6.50€</div>
+                    </div>
+                    <p data-key="bungeo_desc">Gaufrette coréenne en forme de poisson garnie de pâte de haricots rouges sucrée. ★★★★★</p>
+                </div>
+                
+                <div style="grid-column: 1 / -1; text-align: center; margin-top: 1rem; background:#e8f5e9; padding:0.5rem; border-radius:4px; font-weight:600; color:#2e7d32;" data-key="halal_certif">
+                     Tous nos plats sont certifiés HALAL (حلال)
+                </div>
             </div>
         </section>
 
-        <!-- LIGHTBOX (Fisheye de zoom masqué par défaut) -->
-        <div id="menuLightbox" class="lightbox" onclick="closeLightbox()">
-            <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1200&q=80" alt="Carte Agrandie">
-        </div>
-
-        <!-- ONGLET : RÉSERVATION -->
-        <section id="reservation" class="tab-content">
-            <h2>Réserver une Table</h2>
-            <div class="booking-container">
-                <form id="bookingForm" onsubmit="handleBooking(event)">
-                    <div class="form-group">
-                        <label for="name">Nom complet</label>
-                        <input type="text" id="name" required placeholder="Ex: Jean Dupont">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Numéro de téléphone</label>
-                        <input type="tel" id="phone" required placeholder="Ex: 06 12 34 56 78">
-                    </div>
-                    <div class="form-group">
-                        <label for="guests">Nombre de personnes</label>
-                        <select id="guests">
-                            <option value="1">1 personne</option>
-                            <option value="2" selected>2 personnes</option>
-                            <option value="3">3 personnes</option>
-                            <option value="4">4 personnes</option>
-                            <option value="5+">5 personnes ou plus</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Date</label>
-                        <input type="date" id="date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Heure</label>
-                        <select id="time">
-                            <option value="12:00">12:00 (Midi)</option>
-                            <option value="12:30">12:30</option>
-                            <option value="13:00">13:00</option>
-                            <option value="13:30">13:30</option>
-                            <option value="19:00">19:00 (Soir)</option>
-                            <option value="19:30">19:30</option>
-                            <option value="20:00">20:00</option>
-                            <option value="20:30">20:30</option>
-                            <option value="21:00">21:00</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Confirmer la Demande</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- ONGLET : INFOS & HORAIRES (MISES À JOUR EXACTES) -->
+        <!-- ONGLET : INFOS & HORAIRES -->
         <section id="contact" class="tab-content">
-            <h2>Localisation & Horaires Exacts</h2>
+            <h2 data-key="contact_title">Localisation & Horaires Exacts</h2>
             <div class="contact-grid">
                 
                 <div class="info-box">
                     <div class="info-item">
                         <i class="fa-solid fa-location-dot"></i>
                         <div>
-                            <h4>Adresse Exacte</h4>
-                            <p><strong>15 Rue de la Convention</strong>, 75015 Paris, France</p>
-                            <p style="font-size: 0.85rem; color:#666; margin-top: 2px;">(Métro : Boucicaut / Convention)</p>
+                            <h4 data-key="c_adr_title">Adresse Exacte</h4>
+                            <p><strong>15 Rue Violet</strong>, 75015 Paris, France</p>
+                            <p style="font-size: 0.85rem; color:#666; margin-top: 2px;" data-key="c_adr_sub">(Métro : Avenue Émile Zola / Commerce)</p>
                         </div>
                     </div>
 
                     <div class="info-item">
                         <i class="fa-solid fa-clock"></i>
                         <div>
-                            <h4>Horaires réels</h4>
-                            <p><strong>Lundi au Samedi :</strong></p>
-                            <p>Midi : 12:00 – 14:30</p>
-                            <p>Soir : 19:00 – 22:30</p>
-                            <p style="margin-top: 0.5rem; color: #b71c1c;"><strong>Dimanche :</strong> Fermé</p>
+                            <h4 data-key="c_hours_title">Horaires d'Ouverture</h4>
+                            <p><strong data-key="c_hours_all">7 jours / 7 (Tous les jours) :</strong></p>
+                            <p style="margin-top:0.3rem;" data-key="c_hours_mid">☀️ Midi : 12:00 – 17:00</p>
+                            <p data-key="c_hours_eve">🌙 Soir : 18:00 – 22:00</p>
                         </div>
                     </div>
 
                     <div class="info-item">
                         <i class="fa-solid fa-phone"></i>
                         <div>
-                            <h4>Téléphone direct</h4>
-                            <p><a href="tel:+33145778262" style="color: var(--color-primary); font-weight: 600; font-size: 1.2rem;">01 45 77 82 62</a></p>
+                            <h4 data-key="c_phone_title">Téléphone direct</h4>
+                            <p><a href="tel:+33972921197" style="color: var(--color-primary); font-weight: 600; font-size: 1.2rem;">09 72 92 11 97</a></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- VRAIE CARTE GOOGLE MAPS INTERACTIVE SUR LE 15 RUE DE LA CONVENTION -->
+                <!-- CARTE GOOGLE MAPS -->
                 <div class="map-container">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.867451877894!2d2.2855146114175586!3d48.83789410186981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67011d61994ad%3A0x1d2f70b6f987cc7c!2s15%20Rue%20de%20la%20Convention%2C%2075015%20Paris!5e0!3m2!1sfr!2sfr!4v1719245500000!5m2!1sfr!2sfr" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.568341258674!2d2.2937543768757474!3d48.84411130146747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6701a073f3ad5%3A0xc3f5b7ad8cb9e6ab!2s15%20Rue%20Violet%2C%2075015%20Paris!5e0!3m2!1sfr!2sfr!4v1719246900000!5m2!1sfr!2sfr" 
                         allowfullscreen="" 
                         loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade">
@@ -625,26 +845,250 @@
 
     </main>
 
-    <!-- INTERFACE ANIMATION VALIDATION REÇUE -->
-    <div id="successOverlay" class="success-overlay">
-        <div class="success-card">
-            <div class="success-icon">
-                <i class="fa-solid fa-check"></i>
-            </div>
-            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-primary); margin-bottom: 1rem;">Demande Envoyée !</h3>
-            <p id="successMessage" style="margin-bottom: 2rem; color: #555; font-size: 0.95rem;"></p>
-            <button id="actionBtn" class="btn" onclick="closeSuccessModal()">Fermer</button>
-        </div>
-    </div>
-
-    <!-- PIED DE PAGE -->
     <footer>
-        <p>&copy; 2026 Dong Né Paris 15. Tous droits réservés. Inspiré par l'art culinaire asiatique.</p>
+        <p data-key="footer_text">&copy; 2026 Dong Né Paris 15. Tous droits réservés. Plats Coréens d'Exception.</p>
     </footer>
 
-    <!-- INTERACTIONS JAVASCRIPT -->
+    <!-- LOGIQUE JAVASCRIPT ET SYSTEME DE TRADUCTION -->
     <script>
-        // Fonction pour changer d'onglet
+        // --- BASE DE TRADUCTION COMPLÈTE ---
+        const translations = {
+            fr: {
+                nav_home: "Accueil", nav_menu: "Le Menu", nav_contact: "Infos & Horaires",
+                hero_title: "L'Authenticité Coréenne au cœur du 15ème",
+                hero_desc: "Découvrez Dong Né, votre escale incontournable à Paris pour savourer de délicieux Kimbaps faits maison, du poulet frit coréen croustillant, des Tteokbokki fondants et des desserts traditionnels uniques.",
+                btn_book_now: "Découvrir la carte",
+                reviews_title: "Ce que nos clients disent (Avis & Critiques)",
+                review_1: '"Les kimbaps sont incroyablement frais et généreux ! Un vrai voyage gustatif à Séoul depuis la rue Violet."',
+                review_2: '"Le poulet frit caramélisé est à tomber par terre. Le cadre est épuré, intimiste et le service adorable !"',
+                review_3: '"Formule midi au top et très complète. Les desserts Bungeoppang à la pâte de haricot rouge sont une superbe découverte."',
+                menu_title: "Notre Carte",
+                tab_formules: "Formules & Sets", tab_plats: "Plats Principaux", tab_sides: "Sides & Fritures", tab_boissons: "Boissons & Thés", tab_desserts: "Desserts",
+                title_midi: "Formules Midi (En semaine jusqu'à 15h00 - Sauf jours fériés & week-end)",
+                f_a_desc: "1 KIMBAP au choix + (1 TTEOKBOKKI OU 1 POULET au choix) + 1 FRITURE au choix",
+                f_b_desc: "1 POULET au choix + 1 RIZ ASSAISONNÉ + 1 FRITURE au choix",
+                f_c_desc: "1 BIBIMBAP au choix + 1 OMUK SOUPE + 1 FRITURE au choix",
+                f_d_desc: "TTEOKBOKKI + 1 OMUK SOUPE + 2 FRITURES au choix",
+                supp_cheese: "Supplément fromage +2.00€", supp_chicken: "Poulet Mixte +1.00€", supp_boeuf: "Supplément Bœuf +1.00€", supp_cheddar: "Supplément Cheddar +1.00€",
+                title_sets: "Sets Complets",
+                set_1p_desc: "BIBIMBAP au choix + 1 OMUK SOUPE + 1 FRITURE au choix + 1 DESSERT au choix",
+                per_pers: "(22€/pers)",
+                set_2pa_desc: "POULET au choix + 1 KIMBAP au choix + 1 JAPCHAE au choix + 2 FRITURES au choix",
+                set_2pb_desc: "TTEOKBOKKI + 1 KIMBAP au choix + 1 ASSORTIMENT DE FRITURES + 2 OMUK SOUPES",
+                kimbap_desc: "Rouleau de riz entouré d'algue, garni de concombre, radis, carotte, ainsi que de la garniture de votre choix :",
+                kimbap_list: "• Bœuf (불고기) &nbsp;&nbsp; • Porc (제육) &nbsp;&nbsp; • Thon (참치)<br>• Crevette (새우) &nbsp;&nbsp; • Fromage (치즈) &nbsp;&nbsp; • Salade (샐러드)<br>• Piment (땡초) 🔥",
+                poulet_caram_desc: "100% blanc de poulet frit dans sa sauce caramélisée signature.",
+                poulet_coreen_desc: "100% blanc de poulet frit dans sa sauce épicée et sucrée, saupoudré de cacahuètes grillées.",
+                poulet_mixte_desc: "100% blanc de poulet frit servi avec nos 2 sauces signatures.",
+                bibimbap_desc: "Base de riz accompagnée de courgette, carotte, champignon, radis and oignon ainsi que de la garniture de votre choix.",
+                bibimbap_opts: "Options : Légume / Porc (+1€) / Bœuf (+1€) / Thon (+1€)",
+                tteok_desc: "Gâteaux de riz et pâte de poisson dans sa sauce pimentée.",
+                japchae_desc: "Nouilles de patate douce sautées avec des légumes.",
+                ramen_desc: "Nouilles dans un bouillon très épicé garni d'un œuf.",
+                soupe_rav_desc: "Une soupe de raviolis dans un bouillon de légumes et anchois, garnie d'une omelette, courgette, bœuf, feuilles d'algue.",
+                udon_desc: "Nouilles udon dans un bouillon de soja avec pâte de poisson, 2 fritures crevettes et 1 friture légume.",
+                fou_epice_desc: "Notre version kimbap ultra-relevée pour les amateurs de sensations fortes.",
+                assort_frit_desc: "Œuf 1p, Raviolis 2p, kimmali 2p, crevettes 3p, Légume 2p, fromages 2p.",
+                omuk_desc: "Bouillon de poisson accompagné de sa 1 brochette de pâte de poisson.",
+                title_fritures_indiv: "Portions de Fritures Individuelles — 2.00€ l'unité",
+                frit_oeuf: "Friture Œuf Dur (계란)", frit_rav: "Fritures Raviolis - 2p (만두) (poulet)", frit_kim: "Friture Kimmali (김말이)",
+                frit_crev: "Fritures Crevettes - 2p (새우)", frit_leg: "Friture Légume (야채) (courgettes, carottes, oignons)", frit_fro: "Fritures Fromage - 2p (치즈)",
+                boisson_the_cafe: "Thés / Cafés", b_chaud: "(Chaud)", b_glace: "(Glacé)",
+                the_list: "• Thé Vert (녹차) &nbsp;&nbsp; • Thé Jasmin (자스민)<br>• Thé au Yuju (유자차) &nbsp;&nbsp; • Thé au Gingembre (생강차)<br>• Café (커피)",
+                ade_sub: "(Limonades coréennes)",
+                ade_list: "• Ade au Yuju (유자 에이드)<br>• Ade à la Prune (매실 에이드)<br>• Ade à la Fraise (딸기 에이드)",
+                boissons_fraiches: "Boissons Fraîches",
+                boissons_list: "<span>• Coca & Coca Zero (콜라)</span><span>• Jus d'Ananas (파인애플 주스)</span><span>• Jus de Mangue (망고주스)</span><span>• Jus d'Aloe (알로에주스)</span><span>• Lipton Pêche (아이스티)</span><span>• Sikhye (Boisson riz) (식혜)</span><span>• Evian (에비앙)</span><span>• Perrier (페리에)</span>",
+                bingsu_desc: "Glace pilée traditionnelle coréenne garnie d'une boule de glace à la vanille. Au choix :",
+                bingsu_list: "• Haricot Rouge (팥빙수) &nbsp;&nbsp; • Thé Vert (녹차) &nbsp;&nbsp; • Oreo (오레오)",
+                fondant_title: "Fondant au Chocolat (퐁당오쇼콜라)", fondant_desc: "Un grand classique gourmand au cœur coulant.",
+                bungeo_desc: "Gaufrette coréenne en forme de poisson garnie de pâte de haricots rouges sucrée. ★★★★★",
+                halal_certif: "Tous nos plats sont certifiés HALAL (حلال)",
+                contact_title: "Localisation & Horaires Exacts", c_adr_title: "Adresse Exacte", c_adr_sub: "(Métro : Avenue Émile Zola / Commerce)",
+                c_hours_title: "Horaires d'Ouverture", c_hours_all: "7 jours / 7 (Tous les jours) :", c_hours_mid: "☀️ Midi : 12:00 – 17:00", c_hours_eve: "🌙 Soir : 18:00 – 22:00",
+                c_phone_title: "Téléphone direct", footer_text: "© 2026 Dong Né Paris 15. Tous droits réservés. Plats Coréens d'Exception."
+            },
+            en: {
+                nav_home: "Home", nav_menu: "Menu", nav_contact: "Info & Hours",
+                hero_title: "Authentic Korean Cuisine in the 15th District",
+                hero_desc: "Discover Dong Né, your essential stopover in Paris to enjoy delicious homemade Kimbaps, crispy Korean fried chicken, savory Tteokbokki, and unique traditional desserts.",
+                btn_book_now: "Discover Menu",
+                reviews_title: "What Our Guests Say (Reviews & Feedbacks)",
+                review_1: '"The kimbaps are incredibly fresh and generous! A real culinary trip to Seoul right from Rue Violet."',
+                review_2: '"The caramelized fried chicken is to die for. The setting is refined, cozy and the staff is lovely!"',
+                review_3: '"Excellent and very complete lunch menu. The Bungeoppang desserts with red bean paste are a wonderful discovery."',
+                menu_title: "Our Menu",
+                tab_formules: "Formulas & Sets", tab_plats: "Main Dishes", tab_sides: "Sides & Fried Items", tab_boissons: "Drinks & Teas", tab_desserts: "Desserts",
+                title_midi: "Lunch Formulas (Weekdays until 3:00 PM - Except holidays & weekends)",
+                f_a_desc: "1 KIMBAP of choice + (1 TTEOKBOKKI OR 1 CHICKEN of choice) + 1 FRIED ITEM of choice",
+                f_b_desc: "1 CHICKEN of choice + 1 SEASONED RIZ + 1 FRIED ITEM of choice",
+                f_c_desc: "1 BIBIMBAP of choice + 1 OMUK SOUP + 1 FRIED ITEM of choice",
+                f_d_desc: "TTEOKBOKKI + 1 OMUK SOUP + 2 FRIED ITEMS of choice",
+                supp_cheese: "Extra cheese +2.00€", supp_chicken: "Mixed Chicken +1.00€", supp_boeuf: "Extra Beef +1.00€", supp_cheddar: "Extra Cheddar +1.00€",
+                title_sets: "Complete Sets",
+                set_1p_desc: "BIBIMBAP of choice + 1 OMUK SOUP + 1 FRIED ITEM of choice + 1 DESSERT of choice",
+                per_pers: "(22€/pers)",
+                set_2pa_desc: "CHICKEN of choice + 1 KIMBAP of choice + 1 JAPCHAE of choice + 2 FRIED ITEMS of choice",
+                set_2pb_desc: "TTEOKBOKKI + 1 KIMBAP of choice + 1 ASSORTED FRIED ITEMS + 2 OMUK SOUPS",
+                kimbap_desc: "Rice roll wrapped in seaweed, filled with cucumber, radish, carrot, along with your choice of filling:",
+                kimbap_list: "• Beef (불고기) &nbsp;&nbsp; • Pork (제육) &nbsp;&nbsp; • Tuna (참치)<br>• Shrimp (새우) &nbsp;&nbsp; • Cheese (치즈) &nbsp;&nbsp; • Salad (샐러드)<br>• Chili Pepper (땡초) 🔥",
+                poulet_caram_desc: "100% chicken breast fried in our signature caramelized sauce.",
+                poulet_coreen_desc: "100% chicken breast fried in our sweet and spicy sauce, sprinkled with grilled peanuts.",
+                poulet_mixte_desc: "100% chicken breast fried served with both of our signature sauces.",
+                bibimbap_desc: "Rice base served with zucchini, carrot, mushroom, radish, onion and your choice of topping.",
+                bibimbap_opts: "Options: Vegetable / Pork (+1€) / Beef (+1€) / Tuna (+1€)",
+                tteok_desc: "Rice cakes and fish cake cooked in a spicy chili sauce.",
+                japchae_desc: "Stir-fried sweet potato glass noodles with vegetables.",
+                ramen_desc: "Noodles in a very spicy broth topped with an egg.",
+                soupe_rav_desc: "Dumpling soup in a vegetable and anchovy broth, garnished with egg omelet, zucchini, beef, and seaweed sheets.",
+                udon_desc: "Udon noodles in a soy broth with fish cake, 2 fried shrimps, and 1 fried vegetable.",
+                fou_epice_desc: "Our ultra-spicy kimbap version for thrill-seekers.",
+                assort_frit_desc: "1 Egg, 2 Dumplings, 2 Kimmali, 3 Shrimps, 2 Vegetables, 2 Cheeses.",
+                omuk_desc: "Fish broth served with 1 skewered fish cake.",
+                title_fritures_indiv: "Individual Fried Portions — 2.00€ each",
+                frit_oeuf: "Fried Hard-Boiled Egg (계란)", frit_rav: "Fried Dumplings - 2p (만두) (chicken)", frit_kim: "Fried Kimmali (김말이)",
+                frit_crev: "Fried Shrimps - 2p (새우)", frit_leg: "Fried Vegetable (야채) (zucchini, carrots, onions)", frit_fro: "Fried Cheese - 2p (치즈)",
+                boisson_the_cafe: "Teas / Coffees", b_chaud: "(Hot)", b_glace: "(Iced)",
+                the_list: "• Green Tea (녹차) &nbsp;&nbsp; • Jasmine Tea (자스민)<br>• Yuju Tea (유자차) &nbsp;&nbsp; • Ginger Tea (생강차)<br>• Coffee (커피)",
+                ade_sub: "(Korean Limonades)",
+                ade_list: "• Yuju Ade (유자 에이드)<br>• Plum Ade (매실 에이드)<br>• Strawberry Ade (딸기 에이드)",
+                boissons_fraiches: "Cold Drinks",
+                boissons_list: "<span>• Coca & Coca Zero (콜라)</span><span>• Pineapple Juice (파인애플 주스)</span><span>• Mango Juice (망고주스)</span><span>• Aloe Juice (알로에주스)</span><span>• Lipton Peach (아이스티)</span><span>• Sikhye (Rice Drink) (식혜)</span><span>• Evian (에비앙)</span><span>• Perrier (페리에)</span>",
+                bingsu_desc: "Traditional Korean shaved ice topped with a scoop of vanilla ice cream. Choice of:",
+                bingsu_list: "• Red Bean (팥빙수) &nbsp;&nbsp; • Green Tea (녹차) &nbsp;&nbsp; • Oreo (오레오)",
+                fondant_title: "Chocolate Fondant (퐁당오쇼콜라)", fondant_desc: "A great gourmet classic with a melting chocolate heart.",
+                bungeo_desc: "Fish-shaped Korean waffle filled with sweet red bean paste. ★★★★★",
+                halal_certif: "All our dishes are HALAL certified (حلال)",
+                contact_title: "Location & Exact Hours", c_adr_title: "Exact Address", c_adr_sub: "(Metro: Avenue Émile Zola / Commerce)",
+                c_hours_title: "Opening Hours", c_hours_all: "7 days a week (Every day):", c_hours_mid: "☀️ Lunch: 12:00 PM – 5:00 PM", c_hours_eve: "🌙 Dinner: 6:00 PM – 10:00 PM",
+                c_phone_title: "Direct Phone", footer_text: "© 2026 Dong Né Paris 15. All rights reserved. Exceptional Korean Dishes."
+            },
+            es: {
+                nav_home: "Inicio", nav_menu: "El Menú", nav_contact: "Info y Horarios",
+                hero_title: "Autenticidad Coreana en el corazón del distrito 15",
+                hero_desc: "Descubra Dong Né, su escala imprescindible en París para disfrutar de deliciosos Kimbaps caseros, pollo frito coreano crujiente, Tteokbokki tierno y postres tradicionales únicos.",
+                btn_book_now: "Descubrir la carta",
+                reviews_title: "Lo que dicen nuestros clientes (Opiniones)",
+                review_1: '"¡Los kimbaps son increíblemente frescos y generosos! Un verdadero viaje culinario a Seúl desde la Rue Violet."',
+                review_2: '"El pollo frito caramelizado está de muerte. ¡El ambiente es elegante, íntimo y el servicio encantador!"',
+                review_3: '"Menú del mediodía excelente y muy completo. Los postres Bungeoppang con pasta de judías rojas son un gran descubrimiento."',
+                menu_title: "Nuestra Carta",
+                tab_formules: "Fórmulas y Sets", tab_plats: "Platos Principales", tab_sides: "Acompañamientos", tab_boissons: "Bebidas y Tés", tab_desserts: "Postres",
+                title_midi: "Menús del Mediodía (Días laborables hasta las 15:00 - Excepto festivos y fines de semana)",
+                f_a_desc: "1 KIMBAP a elegir + (1 TTEOKBOKKI O 1 POLLO a elegir) + 1 FRITURA a elegir",
+                f_b_desc: "1 POLLO a elegir + 1 ARROZ SAZONADO + 1 FRITURA a elegir",
+                f_c_desc: "1 BIBIMBAP a elegir + 1 SOPA OMUK + 1 FRITURA a elegir",
+                f_d_desc: "TTEOKBOKKI + 1 SOPA OMUK + 2 FRITURAS a elegir",
+                supp_cheese: "Queso extra +2.00€", supp_chicken: "Pollo Mixto +1.00€", supp_boeuf: "Ternera extra +1.00€", supp_cheddar: "Cheddar extra +1.00€",
+                title_sets: "Sets Completos",
+                set_1p_desc: "BIBIMBAP a elegir + 1 SOPA OMUK + 1 FRITURA a elegir + 1 POSTRE a elegir",
+                per_pers: "(22€/pers)",
+                set_2pa_desc: "POLLO a elegir + 1 KIMBAP a elegir + 1 JAPCHAE a elegir + 2 FRITURAS a elegir",
+                set_2pb_desc: "TTEOKBOKKI + 1 KIMBAP a elegir + 1 SURTIDO DE FRITURAS + 2 SOPAS OMUK",
+                kimbap_desc: "Rollo de arroz envuelto en alga, relleno de pepino, rábano, zanahoria y el ingrediente que elija:",
+                kimbap_list: "• Ternera (불고기) &nbsp;&nbsp; • Cerdo (제육) &nbsp;&nbsp; • Atún (참치)<br>• Camaron (새우) &nbsp;&nbsp; • Queso (치즈) &nbsp;&nbsp; • Ensalada (샐러드)<br>• Chile (땡초) 🔥",
+                poulet_caram_desc: "100% pechuga de pollo frita en nuestra salsa caramelizada exclusiva.",
+                poulet_coreen_desc: "100% pechuga de pollo frita en salsa agridulce picante, espolvoreada con cacahuetes tostados.",
+                poulet_mixte_desc: "100% pechuga de pollo frita servida con nuestras 2 salsas exclusivas.",
+                bibimbap_desc: "Base de arroz acompañada de calabacín, zanahoria, champiñón, rábano, cebolla y el ingrediente que elija.",
+                bibimbap_opts: "Opciones: Verduras / Cerdo (+1€) / Ternera (+1€) / Atún (+1€)",
+                tteok_desc: "Pasteles de arroz y pastel de pescado en salsa de chile picante.",
+                japchae_desc: "Fideos de camote salteados con verduras.",
+                ramen_desc: "Fideos en caldo muy picante cubiertos con un huevo.",
+                soupe_rav_desc: "Sopa de dumplings en caldo de verduras y anchoas, decorada con tortilla de huevo, calabacín, ternera y algas.",
+                udon_desc: "Fideos udon en caldo de soja con pastel de pescado, 2 gambas fritas y 1 verdura frita.",
+                fou_epice_desc: "Nuestra versión de kimbap ultra picante para los amantes de las emociones fuertes.",
+                assort_frit_desc: "1 Huevo, 2 Dumplings, 2 Kimmali, 3 Gambas, 2 Verduras, 2 Quesos.",
+                omuk_desc: "Caldo de pescado acompañado de 1 brocheta de pastel de pescado.",
+                title_fritures_indiv: "Porciones Fritas Individuales — 2.00€ cada una",
+                frit_oeuf: "Huevo Duro Frito (계란)", frit_rav: "Dumplings Fritos - 2p (만두) (pollo)", frit_kim: "Kimmali Frito (김말이)",
+                frit_crev: "Gambas Fritas - 2p (새우)", frit_leg: "Verdura Frita (야채) (calabacín, zanahoria, cebolla)", frit_fro: "Queso Frito - 2p (치즈)",
+                boisson_the_cafe: "Tés / Cafés", b_chaud: "(Caliente)", b_glace: "(Helado)",
+                the_list: "• Té Verde (녹차) &nbsp;&nbsp; • Té Jazmín (자스민)<br>• Té de Yuju (유자차) &nbsp;&nbsp; • Té de Jengibre (생강차)<br>• Café (커피)",
+                ade_sub: "(Limonadas coreanas)",
+                ade_list: "• Ade de Yuju (유자 에이드)<br>• Ade de Ciruela (매실 에이드)<br>• Ade de Fresa (딸기 에이드)",
+                boissons_fraiches: "Bebidas Frías",
+                boissons_list: "<span>• Coca & Coca Zero (콜라)</span><span>• Jugo de Piña (파인애플 주스)</span><span>• Jugo de Mango (망고주스)</span><span>• Jugo de Aloe (알로에주스)</span><span>• Lipton Melocotón (아이스티)</span><span>• Sikhye (Bebida de Arroz) (식혜)</span><span>• Evian (에비앙)</span><span>• Perrier (페리에)</span>",
+                bingsu_desc: "Hielo raspado tradicional coreano cubierto con una bola de helado de vainilla. A elegir:",
+                bingsu_list: "• Judía Roja (팥빙수) &nbsp;&nbsp; • Té Verde (녹차) &nbsp;&nbsp; • Oreo (오레오)",
+                fondant_title: "Fondant de Chocolate (퐁당오쇼콜라)", fondant_desc: "Un gran clásico gourmet con un corazón de chocolate fundido.",
+                bungeo_desc: "Gofre coreano en forma de pez relleno de pasta dulce de judías rojas. ★★★★★",
+                halal_certif: "Todos nuestros platos tienen certificación HALAL (حلال)",
+                contact_title: "Ubicación y Horarios Exactos", c_adr_title: "Dirección Exacta", c_adr_sub: "(Metro: Avenue Émile Zola / Commerce)",
+                c_hours_title: "Horarios de Apertura", c_hours_all: "7 días a la semana (Todos los días):", c_hours_mid: "☀️ Almuerzo: 12:00 – 17:00", c_hours_eve: "🌙 Cena: 18:00 – 22:00",
+                c_phone_title: "Teléfono directo", footer_text: "© 2026 Dong Né Paris 15. Todos los derechos reservados. Platos Coreanos Excepcionales."
+            },
+            ko: {
+                nav_home: "홈", nav_menu: "메뉴", nav_contact: "정보 및 영업시간",
+                hero_title: "파리 15구 중심에서 맛보는 전통 한국의 맛",
+                hero_desc: "파리에서 꼭 방문해야 할 동네(Dong Né) 레스토랑에서 매일 직접 만드는 신선한 김밥, 바삭한 한국식 양념치킨, 매콤달콤한 떡볶이와 특별한 전통 디저트를 만나보세요.",
+                btn_book_now: "메뉴판 보기",
+                reviews_title: "고객 생생 후기 (리뷰)",
+                review_1: '"김밥이 정말 신선하고 속이 꽉 차 있어요! Rue Violet에서 서울로 맛있는 여행을 떠난 기분입니다."',
+                review_2: '"간장 깐풍치킨은 정말 최고입니다. 분위기도 깔끔하고 친절하셔서 너무 좋아요!"',
+                review_3: '"점심 세트 구성이 알차고 가성비 최고입니다. 붕어빵 디저트도 정말 맛있었어요."',
+                menu_title: "메뉴판",
+                tab_formules: "런치 및 세트 메뉴", tab_plats: "메인 요리", tab_sides: "사이드 및 튀김", tab_boissons: "음료 및 차", tab_desserts: "디저트",
+                title_midi: "점심 특선 (평일 15:00까지 - 공휴일 및 주말 제외)",
+                f_a_desc: "김밥 선택 1 + (떡볶이 또는 치킨 선택 1) + 튀김 선택 1",
+                f_b_desc: "치킨 선택 1 + 양념밥 + 튀김 선택 1",
+                f_c_desc: "비빔밥 선택 1 + 어묵 soupe + 튀김 선택 1",
+                f_d_desc: "떡볶이 + 어묵 soupe + 튀김 선택 2",
+                supp_cheese: "치즈 추가 +2.00€", supp_chicken: "반반치킨 변경 +1.00€", supp_boeuf: "소고기 추가 +1.00€", supp_cheddar: "체다치즈 추가 +1.00€",
+                title_sets: "추천 세트 메뉴",
+                set_1p_desc: "비빔밥 선택 1 + 어묵 soupe + 튀김 선택 1 + 디저트 선택 1 (1인 기준)",
+                per_pers: "(1인당 22€/23€)",
+                set_2pa_desc: "치킨 선택 1 + 김밥 선택 1 + 잡채 선택 1 + 튀김 선택 2 (2인 세트)",
+                set_2pb_desc: "떡볶이 + 김밥 선택 1 + 모듬 튀김 세트 + 어묵 soupe 2개 (2인 세트)",
+                kimbap_desc: "신선한 오이, 단무지, 당근이 들어간 든든한 수제 김밥 (원하시는 토핑을 선택하세요):",
+                kimbap_list: "• 불고기 &nbsp;&nbsp; • 제육 &nbsp;&nbsp; • 참치<br>• 새우 &nbsp;&nbsp; • 치즈 &nbsp;&nbsp; • 샐러드<br>• 땡초 매운맛 🔥",
+                poulet_caram_desc: "100% 닭다리살을 바삭하게 튀겨 달콤짭조름한 특제 소스에 버무린 깐풍닭.",
+                poulet_coreen_desc: "바삭한 튀김옷에 매콤달콤한 소스를 입히고 고소한 땅콩 가루를 뿌린 전통 양념치킨.",
+                poulet_mixte_desc: "두 가지 시그니처 맛을 한 번에 즐길 수 있는 촉촉한 반반치킨.",
+                bibimbap_desc: "호박, 당근, 버섯, 무생채, 양파와 계란후라이가 올라간 든든한 비빔밥.",
+                bibimbap_opts: "옵션: 야채 기본 / 제육 (+1€) / 불고기 (+1€) / 참치 (+1€)",
+                tteok_desc: "매콤한 고추장 소스에 쫄깃한 떡และ 어묵이 어우러진 국민 간식 떡볶이.",
+                japchae_desc: "당면에 신선한 야채를 넣고 고소한 참기름으로 볶아낸 전통 잡채.",
+                ramen_desc: "얼큰하고 매운 국물에 계란을 푼 한국식 매운 라면.",
+                soupe_rav_desc: "야채와 멸치 육수에 고기만두, 계란 지단, 호박, 소고기, 김가루를 올린 깊은 맛의 만둣국.",
+                udon_desc: "진한 간장 육수에 통통한 우동면, 어묵, 바삭한 새우튀김 2개와 야채튀김 1개가 올라간 우동.",
+                fou_epice_desc: "매운맛을 사랑하는 분들을 위한 알싸하고 중독성 있는 매운 땡초김밥.",
+                assort_frit_desc: "모듬 튀김 구성: 계란 1, 만두 2, 김말이 2, 새우 3, 야채 2, 치즈 2.",
+                omuk_desc: "시원한 생선 육수에 따끈한 어묵 꼬치 1개가 들어간 어묵탕.",
+                title_fritures_indiv: "수제 튀김 단품 메뉴 — 개당 2.00€",
+                frit_oeuf: "계란 튀김", frit_rav: "닭고기 만두 튀김 (2개)", frit_kim: "바삭한 김말이 튀김",
+                frit_crev: "새우 튀김 (2개)", frit_leg: "야채 튀김 (호박, 당근, 양파)", frit_fro: "치즈 스틱 튀김 (2개)",
+                boisson_the_cafe: "전통 차 / 커피", b_chaud: "(따뜻한 음료)", b_glace: "(아이스 음료)",
+                the_list: "• 녹차 &nbsp;&nbsp; • 자스민차<br>• 유자차 &nbsp;&nbsp; • 생강차<br>• 커피",
+                ade_sub: "(한국식 에이드)",
+                ade_list: "• 유자 에이드<br>• 매실 에이드<br>• 딸기 에이드",
+                boissons_fraiches: "시원한 탄산 및 일반 음료",
+                boissons_list: "<span>• 콜라 & 제로콜라</span><span>• 파인애플 주스</span><span>• 망고 주스</span><span>• 알로에 주스</span><span>• 립톤 아이스티</span><span>• 한국 전통 식혜 쌀음료</span><span>• 에비앙 생수</span><span>• 페리에 탄산수</span>",
+                bingsu_desc: "입안에서 부드럽게 녹는 얼음에 달콤한 바닐라 아이스크림을 올린 전통 빙수 선택:",
+                bingsu_list: "• 전통 팥빙수 &nbsp;&nbsp; • 진한 녹차 빙수 &nbsp;&nbsp; • 달콤한 오레오 빙수",
+                fondant_title: "초콜릿 퐁당 쇼콜라", fondant_desc: "반으로 가르면 진한 초콜릿이 흘러나오는 달콤한 디저트.",
+                bungeo_desc: "겉은 바삭하고 속은 달콤한 팥앙금으로 가득 찬 귀여운 물고기 모양 붕어빵. ★★★★★",
+                halal_certif: "동네(Dong Né)의 모든 메뉴는 할랄(HALAL) 인증을 받았습니다.",
+                contact_title: "찾아오시는 길 및 영업시간", c_adr_title: "매장 위치 주소", c_adr_sub: "(지하철역: Commerce 또는 Avenue Émile Zola 인근)",
+                c_hours_title: "매장 영업시간", c_hours_all: "연중무휴 (매일 영업) :", c_hours_mid: "☀️ 점심 시간: 12:00 – 17:00", c_hours_eve: "🌙 저녁 시간: 18:00 – 22:00",
+                c_phone_title: "매장 직통 전화번호", footer_text: "© 2026 Dong Né Paris 15. All rights reserved. 파리 최고의 한국 요리 전문점."
+            }
+        };
+
+        // --- FONCTION DE CHANGEMENT DE LANGUE ---
+        function changeLanguage(lang, langName) {
+            document.getElementById('active-lang').innerText = langName;
+
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        // --- NAVIGATION DES ONGLETS ---
         function switchTab(tabId) {
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -659,64 +1103,19 @@
                     link.classList.add('active');
                 }
             });
-
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Fonctions de la Lightbox pour le menu
-        function openLightbox() {
-            document.getElementById('menuLightbox').style.display = 'flex';
-        }
-        function closeLightbox() {
-            document.getElementById('menuLightbox').style.display = 'none';
-        }
+        // --- NAVIGATION DES CATÉGORIES DU MENU ---
+        function switchMenuCategory(categoryId, button) {
+            const categories = document.querySelectorAll('.menu-category');
+            categories.forEach(cat => cat.classList.remove('active'));
 
-        // Gestion de la réservation avec ouverture automatique de canal d'envoi
-        function handleBooking(event) {
-            event.preventDefault(); // Bloque le rechargement
-            
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const guests = document.getElementById('guests').value;
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
+            const buttons = document.querySelectorAll('.menu-tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
 
-            // Texte formaté pour le destinataire
-            const messageTexte = `Bonjour Dong Né, je souhaite réserver une table au nom de ${name} pour ${guests} personne(s) le ${date} à ${time}. Mon numéro de contact est le ${phone}. Merci !`;
-
-            // Configuration du message d'affichage local
-            document.getElementById('successMessage').innerHTML = `L'animation est validée ! <br><br><strong>Note :</strong> Pour envoyer <strong>réellement</strong> ce message au restaurant, cliquez ci-dessous pour ouvrir votre messagerie avec le texte pré-rempli.`;
-            
-            // Modifier le bouton de fermeture pour envoyer par email (simulé réels besoins)
-            const actionBtn = document.getElementById('actionBtn');
-            actionBtn.innerText = "Envoyer par E-mail / SMS";
-            actionBtn.onclick = function() {
-                // Ouvre l'application d'envoi d'e-mail par défaut de l'utilisateur avec les données prêtes
-                window.location.href = `mailto:restaurant.dongne@gmail.com?subject=Reservation%20Table%20-${name}&body=${encodeURIComponent(messageTexte)}`;
-                
-                // Masquer le modal après l'action
-                const overlay = document.getElementById('successOverlay');
-                overlay.classList.remove('active');
-                setTimeout(() => { overlay.style.display = 'none'; switchTab('accueil'); }, 400);
-            };
-
-            // Lancer la belle animation visuelle
-            const overlay = document.getElementById('successOverlay');
-            overlay.style.display = 'flex';
-            setTimeout(() => {
-                overlay.classList.add('active');
-            }, 10);
-            
-            document.getElementById('bookingForm').reset();
-        }
-
-        function closeSuccessModal() {
-            const overlay = document.getElementById('successOverlay');
-            overlay.classList.remove('active');
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                switchTab('accueil');
-            }, 400);
+            document.getElementById(categoryId).classList.add('active');
+            button.classList.add('active');
         }
     </script>
 </body>
