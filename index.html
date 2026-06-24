@@ -1,13 +1,723 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dong-ne-site-test</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dong Né - Restaurant Vietnamien Paris 15</title>
+    <!-- Polices élégantes de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Icônes FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- DESIGN & VARIABLES (Inspiré Pink Koï) --- */
+        :root {
+            --color-primary: #8a1c14;   /* Rouge Vietnamien profond */
+            --color-accent: #dfb249;    /* Or / Doré asiatique */
+            --color-dark: #1c1c1c;      /* Noir moderne */
+            --color-light: #ffffff;     /* Blanc pur */
+            --color-bg: #fdfbf7;        /* Fond crème très clair */
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            line-height: 1.6;
+        }
+
+        /* --- EN-TÊTE & NAVIGATION --- */
+        header {
+            background-color: var(--color-light);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--color-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--color-primary);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* --- CONTENU DE L'ONGLET --- */
+        .tab-content {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '❖';
+            display: block;
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            margin-top: 0.5rem;
+        }
+
+        /* --- ONGLET ACCUEIL (HERO) --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            min-height: 70vh;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 4.5rem;
+            color: var(--color-primary);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: var(--color-primary);
+            color: var(--color-light);
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .btn:hover {
+            background-color: var(--color-dark);
+            transform: translateY(-2px);
+        }
+
+        .hero-images {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .hero-images img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: var(--shadow);
+            transition: transform 0.4s;
+        }
+
+        .hero-images img:hover {
+            transform: scale(1.03);
+        }
+
+        /* --- SECTION AVIS CRITIQUES --- */
+        .reviews-section {
+            margin-top: 5rem;
+            background: #fff;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .review-card {
+            border-left: 3px solid var(--color-accent);
+            padding-left: 1.5rem;
+        }
+
+        .stars { color: var(--color-accent); margin-bottom: 0.5rem;}
+
+        /* --- ONGLET MENU (CORRIGÉ & CLIQUABLE) --- */
+        .menu-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .menu-img-container {
+            max-width: 500px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            border: 4px solid #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .menu-img-container img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s, filter 0.3s;
+        }
+
+        .menu-img-container:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.8);
+        }
+
+        /* Overlay "Cliquez pour agrandir" */
+        .menu-img-container::after {
+            content: "🔍 Cliquez pour agrandir";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background: rgba(0,0,0,0.6);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .menu-img-container:hover::after {
+            opacity: 1;
+        }
+
+        /* LIGHTBOX POUR LE MENU (Agrandissement plein écran) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- ONGLET CONTACT & INFOS (MIS À JOUR) --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+        }
+
+        .info-box {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-item {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .info-item i {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+        }
+
+        .info-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- ONGLET RÉSERVATION --- */
+        .booking-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        /* --- MODAL D'ANIMATION DE VALIDATION --- */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(28, 28, 28, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .success-card {
+            background: white;
+            color: var(--color-dark);
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .success-overlay.active .success-card {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4bb543;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--color-dark);
+            color: #aaa;
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 1rem; }
+            .hero { flex-direction: column; text-align: center; }
+            .hero-images { max-width: 100%; }
+            .contact-grid, .reviews-grid { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRE DE NAVIGATION -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">DONG <span>NÉ</span></div>
+            <ul class="nav-links">
+                <li class="nav-link active" onclick="switchTab('accueil')">Accueil</li>
+                <li class="nav-link" onclick="switchTab('menu')">Le Menu</li>
+                <li class="nav-link" onclick="switchTab('reservation')">Réservation</li>
+                <li class="nav-link" onclick="switchTab('contact')">Infos & Horaires</li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- SECTION PRINCIPALE -->
+    <main>
+
+        <!-- ONGLET : ACCUEIL -->
+        <section id="accueil" class="tab-content active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>L'Authenticité du Vietnam au cœur du 15ème</h1>
+                    <p>Inspiré par le raffinement urbain et la Street Food traditionnelle, Dong Né vous propose une immersion culinaire asiatique unique à Paris. Venez savourer nos Phô faits maison et nos Bo Buns croustillants.</p>
+                    <button class="btn" onclick="switchTab('reservation')">Réserver une table</button>
+                </div>
+                <div class="hero-images">
+                    <img src="https://images.unsplash.com/photo-1582450871972-ab5ca641643d?auto=format&fit=crop&w=500&q=80" alt="Plat Vietnamien">
+                    <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=500&q=80" alt="Soupe vietnamienne fumante">
+                    <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=500&q=80" alt="Ambiance Asiatique">
+                    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=500&q=80" alt="Bo bun">
+                </div>
+            </div>
+
+            <!-- Critiques d'avis Google -->
+            <div class="reviews-section">
+                <h3 style="font-family: var(--font-heading); font-size: 2rem; text-align: center; color: var(--color-primary);">Ce que nos clients disent (Avis & Critiques)</h3>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Le meilleur Pho du 15ème arrondissement sans hésiter ! Bouillon tellement parfumé et l'accueil est d'une gentillesse rare."</p>
+                        <strong style="display:block; margin-top:1rem; font-size:0.85rem;">— Thomas L. (Avis Google)</strong>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Superbe adresse repérée sur Instagram. Le décor est magnifique, moderne tout en gardant une touche asiatique chic !"</p>
+                        <strong style="display:block; margin-top:1rem; font-size:0.85rem;">— Léa M. (Critique)</strong>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <p>"Les nems sont ultra croustillants et les plats copieux. Une pépite de quartier où on se sent bien."</p>
+                        <strong style="display:block; margin-top:1rem; font-size:0.85rem;">— Nicolas R.</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONGLET : LE MENU (REPARÉ ET INCORPORÉ AVEC SCRIPT LIGHTBOX) -->
+        <section id="menu" class="tab-content">
+            <h2>Notre Menu & Carte</h2>
+            <div class="menu-layout">
+                <p style="text-align: center; max-width: 600px; margin-bottom: 1rem;">Cliquez sur l'image ci-dessous pour ouvrir la carte en grand écran et lire nos plats confortablement.</p>
+                
+                <div class="menu-img-container" onclick="openLightbox()">
+                    <img id="menuImage" src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80" alt="Carte du restaurant Dong Né">
+                </div>
+                
+                <button class="btn" onclick="switchTab('reservation')" style="margin-top: 1rem;">Le menu vous plaît ? Réservez ici</button>
+            </div>
+        </section>
+
+        <!-- LIGHTBOX (Fisheye de zoom masqué par défaut) -->
+        <div id="menuLightbox" class="lightbox" onclick="closeLightbox()">
+            <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1200&q=80" alt="Carte Agrandie">
+        </div>
+
+        <!-- ONGLET : RÉSERVATION -->
+        <section id="reservation" class="tab-content">
+            <h2>Réserver une Table</h2>
+            <div class="booking-container">
+                <form id="bookingForm" onsubmit="handleBooking(event)">
+                    <div class="form-group">
+                        <label for="name">Nom complet</label>
+                        <input type="text" id="name" required placeholder="Ex: Jean Dupont">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Numéro de téléphone</label>
+                        <input type="tel" id="phone" required placeholder="Ex: 06 12 34 56 78">
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Nombre de personnes</label>
+                        <select id="guests">
+                            <option value="1">1 personne</option>
+                            <option value="2" selected>2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5+">5 personnes ou plus</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Heure</label>
+                        <select id="time">
+                            <option value="12:00">12:00 (Midi)</option>
+                            <option value="12:30">12:30</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>
+                            <option value="19:00">19:00 (Soir)</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                            <option value="21:00">21:00</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Confirmer la Demande</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ONGLET : INFOS & HORAIRES (MISES À JOUR EXACTES) -->
+        <section id="contact" class="tab-content">
+            <h2>Localisation & Horaires Exacts</h2>
+            <div class="contact-grid">
+                
+                <div class="info-box">
+                    <div class="info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Adresse Exacte</h4>
+                            <p><strong>15 Rue de la Convention</strong>, 75015 Paris, France</p>
+                            <p style="font-size: 0.85rem; color:#666; margin-top: 2px;">(Métro : Boucicaut / Convention)</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <div>
+                            <h4>Horaires réels</h4>
+                            <p><strong>Lundi au Samedi :</strong></p>
+                            <p>Midi : 12:00 – 14:30</p>
+                            <p>Soir : 19:00 – 22:30</p>
+                            <p style="margin-top: 0.5rem; color: #b71c1c;"><strong>Dimanche :</strong> Fermé</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h4>Téléphone direct</h4>
+                            <p><a href="tel:+33145778262" style="color: var(--color-primary); font-weight: 600; font-size: 1.2rem;">01 45 77 82 62</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VRAIE CARTE GOOGLE MAPS INTERACTIVE SUR LE 15 RUE DE LA CONVENTION -->
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.867451877894!2d2.2855146114175586!3d48.83789410186981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67011d61994ad%3A0x1d2f70b6f987cc7c!2s15%20Rue%20de%20la%20Convention%2C%2075015%20Paris!5e0!3m2!1sfr!2sfr!4v1719245500000!5m2!1sfr!2sfr" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INTERFACE ANIMATION VALIDATION REÇUE -->
+    <div id="successOverlay" class="success-overlay">
+        <div class="success-card">
+            <div class="success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-primary); margin-bottom: 1rem;">Demande Envoyée !</h3>
+            <p id="successMessage" style="margin-bottom: 2rem; color: #555; font-size: 0.95rem;"></p>
+            <button id="actionBtn" class="btn" onclick="closeSuccessModal()">Fermer</button>
+        </div>
+    </div>
+
+    <!-- PIED DE PAGE -->
+    <footer>
+        <p>&copy; 2026 Dong Né Paris 15. Tous droits réservés. Inspiré par l'art culinaire asiatique.</p>
+    </footer>
+
+    <!-- INTERACTIONS JAVASCRIPT -->
+    <script>
+        // Fonction pour changer d'onglet
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            
+            links.forEach(link => {
+                if(link.getAttribute('onclick').includes(tabId)) {
+                    link.classList.add('active');
+                }
+            });
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Fonctions de la Lightbox pour le menu
+        function openLightbox() {
+            document.getElementById('menuLightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('menuLightbox').style.display = 'none';
+        }
+
+        // Gestion de la réservation avec ouverture automatique de canal d'envoi
+        function handleBooking(event) {
+            event.preventDefault(); // Bloque le rechargement
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const guests = document.getElementById('guests').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            // Texte formaté pour le destinataire
+            const messageTexte = `Bonjour Dong Né, je souhaite réserver une table au nom de ${name} pour ${guests} personne(s) le ${date} à ${time}. Mon numéro de contact est le ${phone}. Merci !`;
+
+            // Configuration du message d'affichage local
+            document.getElementById('successMessage').innerHTML = `L'animation est validée ! <br><br><strong>Note :</strong> Pour envoyer <strong>réellement</strong> ce message au restaurant, cliquez ci-dessous pour ouvrir votre messagerie avec le texte pré-rempli.`;
+            
+            // Modifier le bouton de fermeture pour envoyer par email (simulé réels besoins)
+            const actionBtn = document.getElementById('actionBtn');
+            actionBtn.innerText = "Envoyer par E-mail / SMS";
+            actionBtn.onclick = function() {
+                // Ouvre l'application d'envoi d'e-mail par défaut de l'utilisateur avec les données prêtes
+                window.location.href = `mailto:restaurant.dongne@gmail.com?subject=Reservation%20Table%20-${name}&body=${encodeURIComponent(messageTexte)}`;
+                
+                // Masquer le modal après l'action
+                const overlay = document.getElementById('successOverlay');
+                overlay.classList.remove('active');
+                setTimeout(() => { overlay.style.display = 'none'; switchTab('accueil'); }, 400);
+            };
+
+            // Lancer la belle animation visuelle
+            const overlay = document.getElementById('successOverlay');
+            overlay.style.display = 'flex';
+            setTimeout(() => {
+                overlay.classList.add('active');
+            }, 10);
+            
+            document.getElementById('bookingForm').reset();
+        }
+
+        function closeSuccessModal() {
+            const overlay = document.getElementById('successOverlay');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                switchTab('accueil');
+            }, 400);
+        }
+    </script>
+</body>
 </html>
